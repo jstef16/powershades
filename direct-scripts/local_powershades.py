@@ -12,7 +12,7 @@ server_address = ('192.168.1.80', 42)
 
 crc_max = 65535
 
-percentages = [79, 78, 77, 76, 74, 73, 72, 71]
+percentages = [79, 78, 76, 74, 73, 72, 71]
 results = {}
 
 for percent in percentages:
@@ -36,6 +36,7 @@ for percent in percentages:
             response, server = udp_socket.recvfrom(50439)
             results[percent] = f"this.crcMap.set({percent}, '{hex_crc}')"
             print(f'CRC {hex_crc} was valid for {hex_percent} with response:{response}')
+            break
         except socket.timeout:
             print(f"Timeout: No response received for {percent}% for crc {i} after {timeout} seconds.")
         except (socket.error, OSError) as e:
